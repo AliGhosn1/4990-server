@@ -1,20 +1,29 @@
 export const saveWorldData = (req, res, db) => {
   const { playerName, saveData } = req.body;
-  if (!playerName || !saveData) return res.status(400).json({ message: 'Missing playerName or saveData' });
+
+  console.log('Received save request for player: ' + playerName);
+
+  if (!playerName || !saveData) 
+    return res.status(400).json({ message: 'Missing playerName or saveData' });
 
   const insertPlayer = 'INSERT IGNORE INTO Players (playerName) VALUES (?)';
+  const getPlayerId = 'SELECT player_id FROM Players WHERE playerName = ?';
+  const insertSave = 'INSERT INTO GameSaves (player_id, saveData) VALUES (?, ?)';
+
   db.query(insertPlayer, [playerName], (err) => {
-    if (err) return res.status(500).json({ message: 'Insert player error' });
+    if (err) 
+        return res.status(500).json({ message: 'Insert player error' });
 
-    const getPlayerId = 'SELECT player_id FROM Players WHERE playerName = ?';
     db.query(getPlayerId, [playerName], (err, results) => {
-      if (err || results.length === 0) return res.status(500).json({ message: 'Get player ID error' });
+      if (err || results.length === 0) 
+        return res.status(500).json({ message: 'Get player ID error' });
 
-      const playerId = results[0].player_id;
-      const insertSave = 'INSERT INTO GameSaves (player_id, saveData) VALUES (?, ?)';
-      db.query(insertSave, [playerId, JSON.stringify(saveData)], (err) => {
-        if (err) return res.status(500).json({ message: 'Save insert error' });
+      db.query(insertSave, [results[0].player_id, JSON.stringify(saveData)], (err) => {
+        if (err) 
+            return res.status(500).json({ message: 'Save insert error' });
+        
         res.status(200).json({ message: 'Game data saved' });
+        console.log('Game data saved for player: ' + playerName);
       });
     });
   });

@@ -30,10 +30,10 @@ db.connect((err) => {
 
 // Endpoints
 app.post('/submit-score', (req, res) => submitScore(req, res, db));
-app.post('/save-world-data', (req, res) =>  saveWorldData(req, res, db));
+app.post('/world-data', (req, res) =>  saveWorldData(req, res, db));
 
 app.get('/leaderboard', (req, res) => getLeaderboard(req, res, db));
-app.get('/load-world-data',  (req, res) => getWorldData(req, res, db));
+app.get('/world-data',  (req, res) => getWorldData(req, res, db));
 
 
 // Start the server
