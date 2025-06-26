@@ -31,6 +31,6 @@ CREATE TABLE GameSaves (
 );
 
 -- Selects
-SELECT * FROM Players
-SELECT * FROM Scores
-SELECT * FROM GameSaves
+SELECT * FROM Players;
+SELECT * FROM Scores;
+SELECT * FROM GameSaves;
