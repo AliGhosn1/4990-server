@@ -8,9 +8,12 @@ DROP TABLE IF EXISTS Players;
 
 -- Players table
 CREATE TABLE Players (
-    player_id INT AUTO_INCREMENT PRIMARY KEY,
-    playerName VARCHAR(50) UNIQUE NOT NULL
+  player_id INT AUTO_INCREMENT PRIMARY KEY,
+  playerName VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255), -- store hashed passwords
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- Scores table
 CREATE TABLE Scores (
@@ -29,6 +32,7 @@ CREATE TABLE GameSaves (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (player_id) REFERENCES Players(player_id) ON DELETE CASCADE
 );
+
 
 -- Selects
 SELECT * FROM Players;

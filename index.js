@@ -1,5 +1,6 @@
 import { submitScore, getLeaderboard } from './endpoints/scores.js';
 import { saveWorldData, getWorldData } from './endpoints/world-save-data.js';
+import { register } from './endpoints/register.js';
 import express from 'express';
 import mysql from 'mysql2';
 import cors from 'cors';
@@ -34,6 +35,8 @@ app.post('/world-data', (req, res) =>  saveWorldData(req, res, db));
 
 app.get('/leaderboard', (req, res) => getLeaderboard(req, res, db));
 app.get('/world-data',  (req, res) => getWorldData(req, res, db));
+
+app.post('/register', (req, res) => register(req, res, db));
 
 
 // Start the server
