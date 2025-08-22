@@ -1,18 +1,24 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
+console.log("Loaded ENV JWT_SECRET:", process.env.JWT_SECRET);
+
+import express from 'express';
+import mysql from 'mysql2';
+import cors from 'cors';
+
 import { submitScore, getLeaderboard } from './endpoints/scores.js';
 import { saveWorldData, getWorldData } from './endpoints/world-save-data.js';
 import { register } from './endpoints/register.js';
 import { login } from './endpoints/login.js';
-import express from 'express';
-import mysql from 'mysql2';
-import cors from 'cors';
-import dotenv from 'dotenv';
-dotenv.config();
-
+import { profile } from './endpoints/profile.js';
+import { refresh, logout } from './endpoints/token.js'; // ✅ only from token.js
+import { authenticateToken } from './middleware/authmiddleware.js';
 
 const app = express();
 const port = 3000;
 
-//Middleware
+// Middleware
 app.use(express.json());
 app.use(cors());
 
@@ -32,20 +38,24 @@ db.connect((err) => {
   console.log('Connected to MySQL');
 });
 
-
-//Endpoints
+// Endpoints
 app.post('/submit-score', (req, res) => submitScore(req, res, db));
-app.post('/world-data', (req, res) =>  saveWorldData(req, res, db));
+app.post('/world-data', (req, res) => saveWorldData(req, res, db));
 
 app.get('/leaderboard', (req, res) => getLeaderboard(req, res, db));
-app.get('/world-data',  (req, res) => getWorldData(req, res, db));
+app.get('/world-data', (req, res) => getWorldData(req, res, db));
 
 app.post('/register', (req, res) => register(req, res, db));
-
 app.post('/login', (req, res) => login(req, res, db));
 
+// Protected route
+app.get('/profile', authenticateToken, (req, res) => profile(req, res, db));
 
-//Start the server
+// Refresh & logout
+app.post('/refresh', (req, res) => refresh(req, res, db));
+app.post('/logout', (req, res) => logout(req, res, db));
+
+// Start the server
 app.listen(port, () => {
   console.log(`Live leaderboard server running at http://localhost:${port}`);
 });
