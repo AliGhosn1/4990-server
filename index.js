@@ -12,7 +12,7 @@ import { saveWorldData, getWorldData } from './endpoints/world-save-data.js';
 import { register } from './endpoints/register.js';
 import { login } from './endpoints/login.js';
 import { profile } from './endpoints/profile.js';
-import { refresh, logout } from './endpoints/token.js'; // ✅ only from token.js
+import { refresh, logout } from './endpoints/token.js'; 
 import { authenticateToken } from './middleware/authmiddleware.js';
 
 const app = express();
