@@ -8,14 +8,6 @@ import mysql from 'mysql2';
 import cors from 'cors';
 
 import { submitScore, getLeaderboard } from './endpoints/scores.js';
-import { saveWorldData, getWorldData } from './endpoints/world-save-data.js';
-import { register } from './endpoints/register.js';
-import { login } from './endpoints/login.js';
-import express from 'express';
-import mysql from 'mysql2';
-import cors from 'cors';
-
-import { submitScore, getLeaderboard } from './endpoints/scores.js';
 import { saveWorldData } from './endpoints/world.js';
 import { register } from './endpoints/register.js';
 import { login } from './endpoints/login.js';
