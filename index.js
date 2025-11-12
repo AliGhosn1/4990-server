@@ -1,5 +1,5 @@
 import { submitScore, getLeaderboard } from './endpoints/scores.js';
-import { saveWorldData, getWorldData } from './endpoints/world-save-data.js';
+import { saveWorldData } from './endpoints/world.js';
 import { register } from './endpoints/register.js';
 import { login } from './endpoints/login.js';
 import express from 'express';
@@ -38,11 +38,11 @@ app.post('/submit-score', (req, res) => submitScore(req, res, db));
 app.post('/world-data', (req, res) =>  saveWorldData(req, res, db));
 
 app.get('/leaderboard', (req, res) => getLeaderboard(req, res, db));
-app.get('/world-data',  (req, res) => getWorldData(req, res, db));
 
 app.post('/register', (req, res) => register(req, res, db));
 
 app.post('/login', (req, res) => login(req, res, db));
+app.post('/world', (req, res) => saveWorldData(req, res, db));
 
 
 //Start the server

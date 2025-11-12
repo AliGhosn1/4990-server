@@ -18,6 +18,7 @@ export const register = (req, res, db) => {
         if (err.code === "ER_DUP_ENTRY") {
           return res.status(400).json({ message: "Username already taken" });
         }
+        console.error("Registration error:", err);
         return res.status(500).json({ message: "Database error" });
       }
 
