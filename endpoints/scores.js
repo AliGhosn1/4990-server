@@ -33,6 +33,6 @@ export const getLeaderboard = (req, res, db) => {
 
   db.query(query, (err, results) => {
     if (err) return res.status(500).json({ message: 'Leaderboard query error' });
-    res.json(results);
+    res.json({ leaderboard: results });
   });
 };
