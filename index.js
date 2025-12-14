@@ -13,7 +13,7 @@ import { register } from './endpoints/register.js';
 import { login } from './endpoints/login.js';
 import { profile } from './endpoints/profile.js';
 import { refresh, logout } from './endpoints/token.js'; 
-import { authenticateToken } from './middleware/authmiddleware.js';
+import { authenticateToken } from './middleware/authMiddleware.js';
 
 const app = express();
 const port = 3000;
